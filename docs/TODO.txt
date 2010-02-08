@@ -1,0 +1,9 @@
+To do
+=====
+
+These things remain to be done:
+
+- Make the custom validator on the ``validateAccept`` field print a status message
+- Translate options for the ``gender`` field
+
+
