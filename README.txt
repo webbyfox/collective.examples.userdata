@@ -24,8 +24,8 @@ The default IUserDataSchema is defined in plone.app.users. To override it, we
 add a file ``configure.zcml``, which overrides plone.app.users'
 UserDataSchemaProvider with the one from our example product.
 
-Adding a field
---------------
+Adding the "Country" field
+--------------------------
 
 We registered our own UserDataSchemaProvider, which lives in
 ``userdataschema.py``. We create a new schema class here:
@@ -42,6 +42,17 @@ We registered our own UserDataSchemaProvider, which lives in
                           default=u"Fill in which country you live in."),
             required=False,
             )    
+
+Adding various other fields
+---------------------------
+
+There are various other extra fields with which you could extend your users'
+profile. In ``userdataschema.py`` you will find examples for:
+
+    - a Date field (``birthdate``)
+    - a Bool field (``newsletter``)
+    - a Bool field which is required for signup (``accept``)
+    - a Choice field (``gender``)
 
 .. _plone.app.users: http://pypi.python.org/pypi/plone.app.users
 
