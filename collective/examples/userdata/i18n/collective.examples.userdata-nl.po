@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: collective.examples.userdata\n"
-"POT-Creation-Date: 2010-02-08 15:29+0000\n"
+"POT-Creation-Date: 2010-02-09 13:42+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: Kees Hink <hink@gw20e.com>\n"
 "Language-Team: Dutch <plone-nl@lists.plone.org>\n"
@@ -33,8 +33,7 @@ msgstr "Mannelijk"
 
 #: userdataschema.py:76
 msgid "help_accept"
-msgstr "Kruis dit veld aan om aan te geven dat u de voorwaarden voor het "
-"gebruik van deze site hebt gevonden en gelezen, en dat u deze aanvaardt."
+msgstr "Kruis dit veld aan om aan te geven dat u de voorwaarden voor het gebruik van deze site hebt gevonden en gelezen, en dat u deze aanvaardt."
 
 #: userdataschema.py:51
 msgid "help_birthdate"
@@ -62,8 +61,7 @@ msgstr "Uw achternaam of familienaam."
 
 #: userdataschema.py:69
 msgid "help_newsletter"
-msgstr "Als u dit veld aankruist zullen we u op de nieuwsbrief van deze site "
-"abonneren."
+msgstr "Als u dit veld aankruist zullen we u op de nieuwsbrief van deze site abonneren."
 
 #: userdataschema.py:63
 msgid "help_phone"
@@ -84,6 +82,13 @@ msgstr "Woonplaats"
 #: userdataschema.py:34
 msgid "label_country"
 msgstr "Land"
+
+# Duplicate from Plone translations, so we can use
+# collective.examples.userdata to translate all fields, incliding those from
+# Plone. This is admittedly a workaround.
+#. Default: "E-mail"
+msgid "label_email"
+msgstr "E-mail"
 
 #: userdataschema.py:22
 msgid "label_firstname"

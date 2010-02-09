@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: collective.examples.userdata\n"
-"POT-Creation-Date: 2010-02-08 15:29+0000\n"
+"POT-Creation-Date: 2010-02-09 13:42+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -80,6 +80,13 @@ msgstr ""
 
 #: userdataschema.py:34
 msgid "label_country"
+msgstr ""
+
+# Duplicate from Plone translations, so we can use
+# collective.examples.userdata to translate all fields, incliding those from
+# Plone. This is admittedly a workaround.
+#. Default: "E-mail"
+msgid "label_email"
 msgstr ""
 
 #: userdataschema.py:22
