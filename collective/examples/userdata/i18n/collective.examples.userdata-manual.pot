@@ -7,6 +7,12 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Domain: collective.examples.userdata\n"
 
+# Duplicate from Plone translations, so we can use
+# collective.examples.userdata to translate all fields, incliding those from
+# Plone. This is admittedly a workaround.
+msgid "label_email"
+msgstr "E-mail"
+
 #: userdataschema.py:22
 msgid "label_firstname"
 msgstr ""
