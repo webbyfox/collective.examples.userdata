@@ -1,0 +1,7 @@
+<?xml version="1.0"?>
+<object name="site_properties" meta_type="Plone Property Sheet">
+ <property name="user_registration_fields" type="lines">
+   <element value="gender"/>
+  </property>
+ </object>
+</object>
