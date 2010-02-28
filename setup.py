@@ -5,7 +5,7 @@ version = '0.1'
 
 setup(name='collective.examples.userdata',
       version=version,
-      description="Showcase for the new (Plone 4) plone.app.users IUserDataSchema, shows how to modify selectable user data.",
+      description="Showcase for the new (Plone 4) plone.app.users IUserDataSchema. Shows how to extend the user data fields that can be selected for the registration form.",
       long_description=open("README.txt").read() + "\n" +
                        open(os.path.join("docs", "HISTORY.txt")).read() + "\n"
                        + open(os.path.join("docs", "TODO.txt")).read(),

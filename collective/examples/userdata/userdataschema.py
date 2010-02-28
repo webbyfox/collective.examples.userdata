@@ -5,8 +5,6 @@ from collective.examples.userdata import _
 from plone.app.users.userdataschema import IUserDataSchemaProvider
 from plone.app.users.userdataschema import IUserDataSchema
 
-from Products.statusmessages.interfaces import IStatusMessage
-
 def validateAccept(value):
     if not value == True:
         return False

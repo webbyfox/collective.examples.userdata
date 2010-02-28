@@ -1,41 +1,57 @@
 Introduction
 ============
 
-Since Plone 4, the list of fields which are available as "user data" are stored
-in a schema called IUserDataSchema. The new package plone.app.users_ is
-responsible for this. It allows the site administrator to define which fields
-should appear on the registration form.
+Since Plone 4, the registration form for new users is a Zope formlib_ form,
+defined in plone.app.users_. plone.app.users allows the site administrator to
+select fields from this schema to appear on the registration form.
 
-This product shows you how you could extend or modify this schema, so you can
-create a product which customizes the available fields on the registration
-form.
-
+This product aims to show how you could extend or modify the default schema
+provided by plone.app.users, and add new fields to the registration form.
 
 How it works
 ============
 
-More information in detail about how you change the fields which appear on the
-registration form.
-
 Overriding the default schema 
 -----------------------------
 
-The default IUserDataSchema is defined in plone.app.users. To override it, we
-add a file ``configure.zcml``, which overrides plone.app.users'
-UserDataSchemaProvider with the one from our example product.
+The default schema is defined in plone.app.users, and is provided by a utility.
+We override this utility in the file ``overrides.zcml``::
 
-Adding the "Country" field
---------------------------
+  <utility 
+      provides="plone.app.users.userdataschema.IUserDataSchemaProvider"
+      factory=".userdataschema.UserDataSchemaProvider"/>
 
-We registered our own UserDataSchemaProvider, which lives in
-``userdataschema.py``. We create a new schema class here:
+Our ``userdataschema.py`` contains::
 
-::
+    from plone.app.users.userdataschema import IUserDataSchemaProvider
+
+    class UserDataSchemaProvider(object):
+        implements(IUserDataSchemaProvider)
+
+        def getSchema(self):
+            """
+            """
+            return IEnhancedUserDataSchema
+
+And, also in ``userdataschema.py``, we subclass the default schema::
+
+    from plone.app.users.userdataschema import IUserDataSchema
 
     class IEnhancedUserDataSchema(IUserDataSchema):
-        """ Use all the fields from the default user data schema, and add:
-        - country
+        """ Use all the fields from the default user data schema, and add various
+        extra fields.
         """
+
+Adding fields to the schema
+---------------------------
+
+The "Country" field
+~~~~~~~~~~~~~~~~~~~
+
+We can now add a schema field to our schema class::
+
+    class IEnhancedUserDataSchema(IUserDataSchema):
+        # ...
         country = schema.TextLine(
             title=_(u'label_country', default=u'Country'),
             description=_(u'help_country',
@@ -43,19 +59,57 @@ We registered our own UserDataSchemaProvider, which lives in
             required=False,
             )    
 
-Adding various other fields
----------------------------
+Various other fields
+~~~~~~~~~~~~~~~~~~~~
 
 There are various other extra fields with which you could extend your users'
 profile. In ``userdataschema.py`` you will find examples for:
 
 - a Date field (``birthdate``)
-- a Bool field (``newsletter``)
-- a Bool field which is required for signup (``accept``)
+- a Boolean field (``newsletter``)
 - a Choice field (``gender``)
 
+The "Accept Terms" field
+~~~~~~~~~~~~~~~~~~~~~~~~
+
+A special case is the ``accept`` field. This is a Boolean field which is
+required for signup. We implement it by adding a ``constraint`` to the schema::
+
+    def validateAccept(value):
+        if not value == True:
+            return False
+        return True
+
+    class IEnhancedUserDataSchema(IUserDataSchema):
+        # ...
+        accept = schema.Bool(
+            title=_(u'label_accept', default=u'Accept terms of use'),
+            description=_(u'help_accept',
+                          default=u"Tick this box to indicate that you have found,"
+                          " read and accepted the terms of use for this site. "),
+            required=True,
+            constraint=validateAccept,
+            )
+
+Because this field can be ignored once registration is complete, we don't add
+it to the memberdata properties (see below).
+
+Adding fields to the memberdata properties
+------------------------------------------
+
+In ``profiles/default/memberdata_properties.xml``, we add the fields that we
+want to store as properties on the member. These are all the fields we defined,
+except the "accept" field, which is wanted only for signup.
+
+Default settings for registration fields
+----------------------------------------
+
+We can automatically select some fields to go on the registration form. The
+fields we define in ``profiles/default/propertiestool.xml`` will be on the form
+once the product is installed.
+
+Of course, the site manager can modify this after installation.
 
 
 .. _plone.app.users: http://pypi.python.org/pypi/plone.app.users
-
-
+.. _formlib: http://pypi.python.org/pypi/zope.formlib
