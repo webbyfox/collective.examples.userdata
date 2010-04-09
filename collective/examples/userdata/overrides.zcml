@@ -7,4 +7,10 @@
       provides="plone.app.users.userdataschema.IUserDataSchemaProvider"
       factory=".userdataschema.UserDataSchemaProvider"/>
 
+  <adapter 
+    provides=".userdataschema.IEnhancedUserDataSchema"
+    for="Products.CMFCore.interfaces.ISiteRoot"
+    factory=".adapter.EnhancedUserDataPanelAdapter"
+    />
+
 </configure>
