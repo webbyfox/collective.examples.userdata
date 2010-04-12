@@ -110,6 +110,34 @@ once the product is installed.
 
 Of course, the site manager can modify this after installation.
 
+Making added fields available on the Personal Information form
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+In order to see these properties in the Personal Information form
+(`@@personal-information`), we need to take a few extra steps. We have to
+override the default adapter which adapts a user object to a form. See the
+plone.app.controlpanel_ documentation for a detailed explanation.
+
+To override plone.app.users' default adapter, we put this in `overrides.zcml`::
+    
+  <adapter 
+    provides=".userdataschema.IEnhancedUserDataSchema"
+    for="Products.CMFCore.interfaces.ISiteRoot"
+    factory=".adapter.EnhancedUserDataPanelAdapter"
+    />
+
+In `adapter.py`, we repeat (yes, this is unfortunate) the fields we defined in
+the schema. For example, for the `firstname` field, we do this::
+
+    class EnhancedUserDataPanelAdapter(UserDataPanelAdapter):
+        """
+        """
+        def get_firstname(self):
+            return self.context.getProperty('firstname', '')
+        def set_firstname(self, value):
+            return self.context.setMemberProperties({'firstname': value})
+        firstname = property(get_firstname, set_firstname)
 
 .. _plone.app.users: http://pypi.python.org/pypi/plone.app.users
-.. _formlib: http://pypi.python.org/pypi/zope.formlib
+.. _formlib: http://pypi.python.org/pypi/zope.formliba
+.. _plone.app.controlpanel: http://pypi.python.org/pypi/plone.app.controlpanel
