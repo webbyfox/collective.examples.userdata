@@ -1,8 +1,13 @@
 Changelog
 =========
 
-0.3 (unreleased)
+0.3 (2010-09-26)
 ----------------
+
+- Make the custom fields available only when the product is installed through
+  Generic Setup, by overriding the utility in componentregistry.xml (Elizabeth
+  Leddy).
+- Added a metadata.xml with a profile version.
 
 0.2 (2010-04-12)
 ----------------

@@ -15,11 +15,12 @@ Overriding the default schema
 -----------------------------
 
 The default schema is defined in plone.app.users, and is provided by a utility.
-We override this utility in the file ``overrides.zcml``::
+We override this utility in the file 
+``profiles/default/componentregistry.xml``::
 
-  <utility 
-      provides="plone.app.users.userdataschema.IUserDataSchemaProvider"
-      factory=".userdataschema.UserDataSchemaProvider"/>
+    <utility
+      interface="plone.app.users.userdataschema.IUserDataSchemaProvider"
+      factory="collective.examples.userdata.userdataschema.UserDataSchemaProvider"
 
 Our ``userdataschema.py`` contains::
 
