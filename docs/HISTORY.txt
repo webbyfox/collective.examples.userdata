@@ -4,6 +4,8 @@ Changelog
 0.4 (unreleased)
 ----------------
 
+- Added German translation (Pavel Bogdanovic, 2011-10-28).
+
 0.3 (2010-09-26)
 ----------------
 
