@@ -140,5 +140,5 @@ the schema. For example, for the `firstname` field, we do this::
         firstname = property(get_firstname, set_firstname)
 
 .. _plone.app.users: http://pypi.python.org/pypi/plone.app.users
-.. _formlib: http://pypi.python.org/pypi/zope.formliba
+.. _formlib: http://pypi.python.org/pypi/zope.formlib
 .. _plone.app.controlpanel: http://pypi.python.org/pypi/plone.app.controlpanel
