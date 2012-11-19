@@ -14,4 +14,14 @@
       provides="Products.GenericSetup.interfaces.EXTENSION"
       />
 
+  <include package="plone.app.users.browser" file="z3c-configure.zcml" />
+
+  <adapter
+    factory=".userdataschema.UserDataPanelExtender"
+    provides="plone.z3cform.fieldsets.interfaces.IFormExtender" />
+
+  <adapter
+    factory=".userdataschema.RegistrationPanelExtender"
+    provides="plone.z3cform.fieldsets.interfaces.IFormExtender" />
+
 </configure>
