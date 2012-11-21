@@ -1,6 +1,9 @@
 Introduction
 ============
 
+The registration and personal information forms are z3c.form forms. These
+can be extended to allow 
+
 Since Plone 4, the registration form for new users is a Zope formlib_ form,
 defined in plone.app.users_. plone.app.users allows the site administrator to
 select fields from this schema to appear on the registration form.
@@ -142,3 +145,4 @@ the schema. For example, for the `firstname` field, we do this::
 .. _plone.app.users: http://pypi.python.org/pypi/plone.app.users
 .. _formlib: http://pypi.python.org/pypi/zope.formlib
 .. _plone.app.controlpanel: http://pypi.python.org/pypi/plone.app.controlpanel
+ 
