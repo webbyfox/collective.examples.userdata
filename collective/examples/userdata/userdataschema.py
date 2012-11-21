@@ -40,10 +40,7 @@ class IEnhancedUserDataSchema(model.Schema):
         title=_(u'label_gender', default=u'Gender'),
         description=_(u'help_gender',
                       default=u"Are you a girl or a boy?"),
-        values = [
-            _(u'Male'), 
-            _(u'Female'),
-            ],
+        values = [u'Male', u'Female'],
         required=True,
         )
     form.widget(gender='z3c.form.browser.radio.RadioFieldWidget')
