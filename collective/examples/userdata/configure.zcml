@@ -24,4 +24,10 @@
     factory=".userdataschema.RegistrationPanelExtender"
     provides="plone.z3cform.fieldsets.interfaces.IFormExtender" />
 
+  <adapter
+    provides=".userdataschema.IEnhancedUserDataSchema"
+    for="plone.app.layout.navigation.interfaces.INavigationRoot"
+    factory=".adapter.EnhancedUserDataSchemaAdapter"
+    />
+
 </configure>
