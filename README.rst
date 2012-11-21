@@ -2,69 +2,96 @@ Introduction
 ============
 
 The registration and personal information forms are z3c.form forms. These
-can be extended to allow 
-
-Since Plone 4, the registration form for new users is a Zope formlib_ form,
-defined in plone.app.users_. plone.app.users allows the site administrator to
-select fields from this schema to appear on the registration form.
+can be extended to allow any additional data to be collected on the forms.
 
 This product aims to show how you could extend or modify the default schema
 provided by plone.app.users, and add new fields to the registration form.
 
-How it works
-============
+Adding custom fields
+--------------------
 
-Overriding the default schema 
------------------------------
+Adding fields to the memberdata properties
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-The default schema is defined in plone.app.users, and is provided by a utility.
-We override this utility in the file 
-``profiles/default/componentregistry.xml``::
+To store the values alongside default fields, we need to add fields to
+``profiles/default/memberdata_properties.xml``. For example::
 
-    <utility
-      interface="plone.app.users.userdataschema.IUserDataSchemaProvider"
-      factory="collective.examples.userdata.userdataschema.UserDataSchemaProvider"
+    <?xml version="1.0"?>
+    <object name="portal_memberdata" meta_type="Plone Memberdata Tool">
+      <property name="country" type="string"></property>
+    </object>
 
-Our ``userdataschema.py`` contains::
+We don't define the "accept" field here, since that is only for signup.
 
-    from plone.app.users.userdataschema import IUserDataSchemaProvider
+Creating a schema
+~~~~~~~~~~~~~~~~~
 
-    class UserDataSchemaProvider(object):
-        implements(IUserDataSchemaProvider)
+We create a schema for our fields in the same manner as any other schema::
 
-        def getSchema(self):
-            """
-            """
-            return IEnhancedUserDataSchema
-
-And, also in ``userdataschema.py``, we subclass the default schema::
-
-    from plone.app.users.userdataschema import IUserDataSchema
-
-    class IEnhancedUserDataSchema(IUserDataSchema):
-        """ Use all the fields from the default user data schema, and add various
-        extra fields.
-        """
-
-Adding fields to the schema
----------------------------
-
-The "Country" field
-~~~~~~~~~~~~~~~~~~~
-
-We can now add a schema field to our schema class::
-
-    class IEnhancedUserDataSchema(IUserDataSchema):
-        # ...
+    class IEnhancedUserDataSchema(model.Schema):
         country = schema.TextLine(
             title=_(u'label_country', default=u'Country'),
             description=_(u'help_country',
-                          default=u"Fill in which country you live in."),
+                          default=u"Fill in the country you live in."),
             required=False,
-            )    
+            )
 
-Various other fields
-~~~~~~~~~~~~~~~~~~~~
+Defining FormExtenders
+~~~~~~~~~~~~~~~~~~~~~~
+
+We need to define a form extender for both ``UserDataPanel`` and 
+``BaseRegistrationForm``. This allows us to register our fields onto either the
+userdata or registration form respectively::
+
+    class UserDataPanelExtender(extensible.FormExtender):
+        adapts(Interface, IDefaultBrowserLayer, UserDataPanel)
+        def update(self):
+            fields = field.Fields(IEnhancedUserDataSchema)
+            fields = fields.omit('accept') # Users have already accepted.
+            self.add(fields, prefix="IEnhancedUserDataSchema")
+
+    class RegistrationPanelExtender(extensible.FormExtender):
+        adapts(Interface, IDefaultBrowserLayer, BaseRegistrationForm)
+        def update(self):
+            fields = field.Fields(IEnhancedUserDataSchema)
+            self.add(fields, prefix="IEnhancedUserDataSchema")
+
+And register these in configure.zcml::
+
+    <adapter
+      factory=".userdataschema.UserDataPanelExtender"
+      provides="plone.z3cform.fieldsets.interfaces.IFormExtender" />
+
+    <adapter
+      factory=".userdataschema.RegistrationPanelExtender"
+      provides="plone.z3cform.fieldsets.interfaces.IFormExtender" />
+
+Defining data manager
+~~~~~~~~~~~~~~~~~~~~~
+
+Before values can be read and written, there needs to be a data manager to
+fetch the values. This can inherit from the default one, so most of the work is
+done for you::
+
+    from plone.app.users.browser.z3cpersonalpreferences import AccountPanelSchemaAdapter
+
+    class EnhancedUserDataSchemaAdapter(AccountPanelSchemaAdapter):
+        schema = IEnhancedUserDataSchema
+
+And register this in ZCML::
+
+    <adapter
+      provides=".userdataschema.IEnhancedUserDataSchema"
+      for="plone.app.layout.navigation.interfaces.INavigationRoot"
+      factory=".adapter.EnhancedUserDataSchemaAdapter"
+      />
+
+By default anything defined in your schema will be read out of the property
+sheets. If you don't want to do that, or want to do more processing beforehand,
+then define getters and setters (the example does this).
+
+Various other field examples
+----------------------------
 
 There are various other extra fields with which you could extend your users'
 profile. In ``userdataschema.py`` you will find examples for:
@@ -98,13 +125,6 @@ required for signup. We implement it by adding a ``constraint`` to the schema::
 Because this field can be ignored once registration is complete, we don't add
 it to the memberdata properties (see below).
 
-Adding fields to the memberdata properties
-------------------------------------------
-
-In ``profiles/default/memberdata_properties.xml``, we add the fields that we
-want to store as properties on the member. These are all the fields we defined,
-except the "accept" field, which is wanted only for signup.
-
 Default settings for registration fields
 ----------------------------------------
 
@@ -113,34 +133,6 @@ fields we define in ``profiles/default/propertiestool.xml`` will be on the form
 once the product is installed.
 
 Of course, the site manager can modify this after installation.
-
-Making added fields available on the Personal Information form
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-In order to see these properties in the Personal Information form
-(`@@personal-information`), we need to take a few extra steps. We have to
-override the default adapter which adapts a user object to a form. See the
-plone.app.controlpanel_ documentation for a detailed explanation.
-
-To override plone.app.users' default adapter, we put this in `overrides.zcml`::
-    
-  <adapter 
-    provides=".userdataschema.IEnhancedUserDataSchema"
-    for="Products.CMFCore.interfaces.ISiteRoot"
-    factory=".adapter.EnhancedUserDataPanelAdapter"
-    />
-
-In `adapter.py`, we repeat (yes, this is unfortunate) the fields we defined in
-the schema. For example, for the `firstname` field, we do this::
-
-    class EnhancedUserDataPanelAdapter(UserDataPanelAdapter):
-        """
-        """
-        def get_firstname(self):
-            return self.context.getProperty('firstname', '')
-        def set_firstname(self, value):
-            return self.context.setMemberProperties({'firstname': value})
-        firstname = property(get_firstname, set_firstname)
 
 .. _plone.app.users: http://pypi.python.org/pypi/plone.app.users
 .. _formlib: http://pypi.python.org/pypi/zope.formlib
