@@ -45,7 +45,7 @@ class IEnhancedUserDataSchema(model.Schema):
         )
     form.widget(gender='z3c.form.browser.radio.RadioFieldWidget')
     birthdate = schema.Date(
-        title=_(u'label_birthdate', default=u'birthdate'),
+        title=_(u'label_birthdate', default=u'Birthdate'),
         description=_(u'help_birthdate',
             default=u'Your date of birth, in the format dd-mm-yyyy'),
         required=False,
