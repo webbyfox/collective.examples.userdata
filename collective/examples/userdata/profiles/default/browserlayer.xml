@@ -1,0 +1,6 @@
+<layers>
+    <layer
+        name="collective.examples.userdata"
+        interface="collective.examples.userdata.interfaces.IUserDataExamplesLayer"
+        />
+</layers>
