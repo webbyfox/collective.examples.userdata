@@ -4,7 +4,7 @@
  <property name="lastname" type="string"></property>
  <property name="city" type="string"></property>
  <property name="country" type="string"></property>
- <property name="birthdate" type="date"></property>
+ <property name="birthdate" type="date">2000/01/01 00:00:00</property>
  <property name="subscribe_newsletter" type="boolean"></property>
  <property name="phone" type="string"></property>
  <property name="gender" type="string"></property>
