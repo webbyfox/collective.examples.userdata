@@ -23,6 +23,10 @@
   <adapter
     factory=".userdataschema.RegistrationPanelExtender"
     provides="plone.z3cform.fieldsets.interfaces.IFormExtender" />
+    
+  <adapter
+    factory=".userdataschema.AddUserFormExtender"
+    provides="plone.z3cform.fieldsets.interfaces.IFormExtender" />
 
   <adapter
     provides=".userdataschema.IEnhancedUserDataSchema"

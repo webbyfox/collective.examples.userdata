@@ -6,9 +6,8 @@ from z3c.form import field
 from z3c.form.browser.radio import RadioFieldWidget
 
 from plone.supermodel import model
-from plone.autoform import directives as form
 from plone.app.users.browser.z3cpersonalpreferences import UserDataPanel
-from plone.app.users.browser.z3cregister import BaseRegistrationForm
+from plone.app.users.browser.z3cregister import RegistrationForm, AddUserForm
 from plone.z3cform.fieldsets import extensible
 
 from collective.examples.userdata import _
@@ -43,7 +42,6 @@ class IEnhancedUserDataSchema(model.Schema):
         values = [u'Male', u'Female'],
         required=True,
         )
-    form.widget(gender='z3c.form.browser.radio.RadioFieldWidget')
     birthdate = schema.Date(
         title=_(u'label_birthdate', default=u'Birthdate'),
         description=_(u'help_birthdate',
@@ -90,13 +88,22 @@ class UserDataPanelExtender(extensible.FormExtender):
     def update(self):
         fields = field.Fields(IEnhancedUserDataSchema)
         fields = fields.omit('accept') # Users have already accepted.
-        fields['gender'].widgetFactory = RadioFieldWidget #TODO: Shouldn't we be able to use a directive?
+        fields['gender'].widgetFactory = RadioFieldWidget
         self.add(fields, prefix="IEnhancedUserDataSchema")
 
 class RegistrationPanelExtender(extensible.FormExtender):
-    adapts(Interface, IUserDataExamplesLayer, BaseRegistrationForm)
+    adapts(Interface, IUserDataExamplesLayer, RegistrationForm)
 
     def update(self):
         fields = field.Fields(IEnhancedUserDataSchema)
-        fields['gender'].widgetFactory = RadioFieldWidget #TODO: Shouldn't we be able to use a directive?
+        fields['gender'].widgetFactory = RadioFieldWidget
+        self.add(fields, prefix="IEnhancedUserDataSchema")
+
+class AddUserFormExtender(extensible.FormExtender):
+    adapts(Interface, IUserDataExamplesLayer, AddUserForm)
+
+    def update(self):
+        fields = field.Fields(IEnhancedUserDataSchema)
+        fields['gender'].widgetFactory = RadioFieldWidget
+        fields = fields.omit('accept') # management form doesn't need this field
         self.add(fields, prefix="IEnhancedUserDataSchema")
