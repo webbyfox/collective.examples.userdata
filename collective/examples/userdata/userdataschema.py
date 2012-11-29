@@ -1,18 +1,17 @@
 from zope.interface import Interface
 from zope.component import adapts
-from zope.publisher.interfaces.browser import IDefaultBrowserLayer
 from zope import schema
 
 from z3c.form import field
 from z3c.form.browser.radio import RadioFieldWidget
 
 from plone.supermodel import model
-from plone.autoform import directives as form
 from plone.app.users.browser.z3cpersonalpreferences import UserDataPanel
-from plone.app.users.browser.z3cregister import BaseRegistrationForm
+from plone.app.users.browser.z3cregister import RegistrationForm, AddUserForm
 from plone.z3cform.fieldsets import extensible
 
 from collective.examples.userdata import _
+from collective.examples.userdata.interfaces import IUserDataExamplesLayer
 
 
 def validateAccept(value):
@@ -40,20 +39,15 @@ class IEnhancedUserDataSchema(model.Schema):
         title=_(u'label_gender', default=u'Gender'),
         description=_(u'help_gender',
                       default=u"Are you a girl or a boy?"),
-        values = [
-            _(u'Male'), 
-            _(u'Female'),
-            ],
+        values = [u'Male', u'Female'],
         required=True,
         )
-    form.widget(gender='z3c.form.browser.radio.RadioFieldWidget')
-#TODO: getContent breaks this :(
-#    birthdate = schema.Date(
-#        title=_(u'label_birthdate', default=u'birthdate'),
-#        description=_(u'help_birthdate', 
-#            default=u'Your date of birth, in the format dd-mm-yyyy'),
-#        required=False,
-#        )
+    birthdate = schema.Date(
+        title=_(u'label_birthdate', default=u'Birthdate'),
+        description=_(u'help_birthdate',
+            default=u'Your date of birth, in the format dd-mm-yyyy'),
+        required=False,
+        )
     city = schema.TextLine(
         title=_(u'label_city', default=u'City'),
         description=_(u'help_city',
@@ -89,18 +83,27 @@ class IEnhancedUserDataSchema(model.Schema):
         )
 
 class UserDataPanelExtender(extensible.FormExtender):
-    adapts(Interface, IDefaultBrowserLayer, UserDataPanel)
+    adapts(Interface, IUserDataExamplesLayer, UserDataPanel)
 
     def update(self):
         fields = field.Fields(IEnhancedUserDataSchema)
         fields = fields.omit('accept') # Users have already accepted.
-        fields['gender'].widgetFactory = RadioFieldWidget #TODO: Shouldn't we be able to use a directive?
+        fields['gender'].widgetFactory = RadioFieldWidget
         self.add(fields, prefix="IEnhancedUserDataSchema")
 
 class RegistrationPanelExtender(extensible.FormExtender):
-    adapts(Interface, IDefaultBrowserLayer, BaseRegistrationForm)
+    adapts(Interface, IUserDataExamplesLayer, RegistrationForm)
 
     def update(self):
         fields = field.Fields(IEnhancedUserDataSchema)
-        fields['gender'].widgetFactory = RadioFieldWidget #TODO: Shouldn't we be able to use a directive?
+        fields['gender'].widgetFactory = RadioFieldWidget
+        self.add(fields, prefix="IEnhancedUserDataSchema")
+
+class AddUserFormExtender(extensible.FormExtender):
+    adapts(Interface, IUserDataExamplesLayer, AddUserForm)
+
+    def update(self):
+        fields = field.Fields(IEnhancedUserDataSchema)
+        fields['gender'].widgetFactory = RadioFieldWidget
+        fields = fields.omit('accept') # management form doesn't need this field
         self.add(fields, prefix="IEnhancedUserDataSchema")
