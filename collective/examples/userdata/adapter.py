@@ -28,6 +28,12 @@ class EnhancedUserDataPanelAdapter(UserDataPanelAdapter):
         return self.context.setMemberProperties({'birthdate': value})
     birthdate = property(get_birthdate, set_birthdate)
 
+    def get_birthyear(self):
+        return self.context.getProperty('birthyear', '')
+    def set_birthyear(self, value):
+        return self.context.setMemberProperties({'birthyear': value})
+    birthyear = property(get_birthyear, set_birthyear)
+
     def get_city(self):
         return self.context.getProperty('city', '')
     def set_city(self, value):

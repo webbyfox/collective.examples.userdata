@@ -37,7 +37,10 @@ msgstr "Kreuzen Sie dieses Feld an, um die Nutzungsregeln zu akzeptieren."
 
 #: userdataschema.py:51
 msgid "help_birthdate"
-msgstr "Ihr Geburtsdatum, im Format  TT-MM-JJJJ."
+msgstr "Ihr Geburtsdatum, im Format TT-MM-JJJJ."
+
+msgid "help_birthyear"
+msgstr "Ihr Geburtsdatum, im Format JJJJ."
 
 #: userdataschema.py:57
 msgid "help_city"
@@ -74,6 +77,9 @@ msgstr "Ich habe die Nutzungsregeln gelesen haben und aktzeptiert."
 #: userdataschema.py:50
 msgid "label_birthdate"
 msgstr "Geburtsdatum"
+
+msgid "label_birthyear"
+msgstr "Geburtsjahr"
 
 #: userdataschema.py:56
 msgid "label_city"

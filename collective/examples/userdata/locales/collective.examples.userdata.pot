@@ -38,6 +38,9 @@ msgstr ""
 msgid "help_birthdate"
 msgstr ""
 
+msgid "help_birthyear"
+msgstr ""
+
 #: userdataschema.py:57
 msgid "help_city"
 msgstr ""
@@ -72,6 +75,9 @@ msgstr ""
 
 #: userdataschema.py:50
 msgid "label_birthdate"
+msgstr ""
+
+msgid "label_birthyear"
 msgstr ""
 
 #: userdataschema.py:56

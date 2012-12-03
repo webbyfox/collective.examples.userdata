@@ -50,6 +50,12 @@ class IEnhancedUserDataSchema(IUserDataSchema):
             default=u'Your date of birth, in the format dd-mm-yyyy'),
         required=False,
         )
+    birthyear = schema.Int(
+        title=_(u'label_birthyear', default=u'Year of birth'),
+        description=_(u'help_birthyear',
+                      default=u"Your birth year, in the format YYYY."),
+        required=False,
+        )
     city = schema.TextLine(
         title=_(u'label_city', default=u'City'),
         description=_(u'help_city',

@@ -39,6 +39,9 @@ msgstr "Kruis dit veld aan om aan te geven dat u de voorwaarden voor het gebruik
 msgid "help_birthdate"
 msgstr "Uw geboortedatum, in het formaat dd-mm-jjjj."
 
+msgid "help_birthyear"
+msgstr "Uw geboortejaar, in het formaat jjjj."
+
 #: userdataschema.py:57
 msgid "help_city"
 msgstr "Vul uw woonplaats in."
@@ -74,6 +77,9 @@ msgstr "Aanvaarden gebruiksvoorwaarden"
 #: userdataschema.py:50
 msgid "label_birthdate"
 msgstr "Geboortedatum"
+
+msgid "label_birthyear"
+msgstr "Geboortejaar"
 
 #: userdataschema.py:56
 msgid "label_city"
