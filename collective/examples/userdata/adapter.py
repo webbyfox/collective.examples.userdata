@@ -1,5 +1,6 @@
 from plone.app.users.browser.personalpreferences import UserDataPanelAdapter
 
+
 class EnhancedUserDataPanelAdapter(UserDataPanelAdapter):
     """
     """
@@ -56,5 +57,3 @@ class EnhancedUserDataPanelAdapter(UserDataPanelAdapter):
     def set_accept(self, value):
         return self.context.setMemberProperties({'accept': value})
     accept = property(get_accept, set_accept)
-
-

@@ -2,7 +2,7 @@
     xmlns="http://namespaces.zope.org/zope"
     i18n_domain="collective.examples.userdata">
 
-  <adapter 
+  <adapter
     provides=".userdataschema.IEnhancedUserDataSchema"
     for="Products.CMFCore.interfaces.ISiteRoot"
     factory=".adapter.EnhancedUserDataPanelAdapter"

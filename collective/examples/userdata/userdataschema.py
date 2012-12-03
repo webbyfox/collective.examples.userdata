@@ -1,9 +1,9 @@
-from zope.interface import Interface, implements
-from zope import schema
-
-from collective.examples.userdata import _
-from plone.app.users.userdataschema import IUserDataSchemaProvider
 from plone.app.users.userdataschema import IUserDataSchema
+from plone.app.users.userdataschema import IUserDataSchemaProvider
+from zope import schema
+from zope.interface import implements
+from collective.examples.userdata import _
+
 
 def validateAccept(value):
     if not value == True:
@@ -39,14 +39,14 @@ class IEnhancedUserDataSchema(IUserDataSchema):
         description=_(u'help_gender',
                       default=u"Are you a girl or a boy?"),
         values = [
-            _(u'Male'), 
+            _(u'Male'),
             _(u'Female'),
             ],
         required=True,
         )
     birthdate = schema.Date(
         title=_(u'label_birthdate', default=u'birthdate'),
-        description=_(u'help_birthdate', 
+        description=_(u'help_birthdate',
             default=u'Your date of birth, in the format dd-mm-yyyy'),
         required=False,
         )
@@ -83,4 +83,3 @@ class IEnhancedUserDataSchema(IUserDataSchema):
         required=True,
         constraint=validateAccept,
         )
-
