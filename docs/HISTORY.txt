@@ -4,6 +4,11 @@ Changelog
 0.4dev (unreleased)
 -------------------
 
+- Dont' overwrite existing user registration fields, just add accept and
+  country. (thet) 
+- Add field "birthyear" for use cases where asking for the exact birth date is
+  too much. (thet)
+- Using locales directory instead of i18n and general cleanup. (thet)
 - Moved to github (Kees Hink)
 - Added German translation (Pavel Bogdanovic, 2011-10-28).
 
