@@ -1,9 +1,15 @@
 from plone.app.users.userdataschema import IUserDataSchema
 from plone.app.users.userdataschema import IUserDataSchemaProvider
 from zope import schema
+from zope.schema.vocabulary import SimpleVocabulary, SimpleTerm
 from zope.interface import implements
 from collective.examples.userdata import _
 
+
+gender_options = SimpleVocabulary([
+    SimpleTerm(value='Male', title=_(u'Male')),
+    SimpleTerm(value='Female', title=_(u'Female')),
+    ])
 
 def validateAccept(value):
     if not value == True:
@@ -38,10 +44,7 @@ class IEnhancedUserDataSchema(IUserDataSchema):
         title=_(u'label_gender', default=u'Gender'),
         description=_(u'help_gender',
                       default=u"Are you a girl or a boy?"),
-        values = [
-            _(u'Male'),
-            _(u'Female'),
-            ],
+        vocabulary = gender_options,
         required=True,
         )
     birthdate = schema.Date(
@@ -50,7 +53,7 @@ class IEnhancedUserDataSchema(IUserDataSchema):
             default=u'Your date of birth, in the format dd-mm-yyyy'),
         required=False,
         )
-    birthyear = schema.Int(
+    birthyear = schema.TextLine(
         title=_(u'label_birthyear', default=u'Year of birth'),
         description=_(u'help_birthyear',
                       default=u"Your birth year, in the format YYYY."),
