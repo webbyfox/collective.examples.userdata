@@ -72,7 +72,7 @@ msgstr "Ihre Telefonnummer"
 
 #: userdataschema.py:75
 msgid "label_accept"
-msgstr "Ich habe die Nutzungsregeln gelesen haben und aktzeptiert."
+msgstr "Ich habe die Nutzungsregeln gelesen und aktzeptiert."
 
 #: userdataschema.py:50
 msgid "label_birthdate"
