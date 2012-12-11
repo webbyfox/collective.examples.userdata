@@ -40,7 +40,7 @@ msgid "help_birthdate"
 msgstr "Ihr Geburtsdatum, im Format TT-MM-JJJJ."
 
 msgid "help_birthyear"
-msgstr "Ihr Geburtsdatum, im Format JJJJ."
+msgstr "im Format JJJJ."
 
 #: userdataschema.py:57
 msgid "help_city"
@@ -56,7 +56,7 @@ msgstr "Ihr Vorname."
 
 #: userdataschema.py:41
 msgid "help_gender"
-msgstr "Ihr Geschlecht."
+msgstr ""
 
 #: userdataschema.py:29
 msgid "help_lastname"
