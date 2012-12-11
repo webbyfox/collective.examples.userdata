@@ -45,7 +45,7 @@ class IEnhancedUserDataSchema(IUserDataSchema):
         description=_(u'help_gender',
                       default=u"Are you a girl or a boy?"),
         vocabulary = gender_options,
-        required=True,
+        required=False,
         )
     birthdate = schema.Date(
         title=_(u'label_birthdate', default=u'birthdate'),
