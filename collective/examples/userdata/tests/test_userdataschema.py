@@ -1,3 +1,4 @@
+from datetime import datetime
 import transaction
 
 from plone.app.testing import TEST_USER_ID, setRoles
@@ -25,13 +26,13 @@ class TestUserDataSchema(FunctionalTestCase):
                 'radio') # Using custom widget
             self.assertEquals(
                 browser.getControl(name='form.birthdate-day').type,
-                'text')
+                'select')
             self.assertEquals(
                 browser.getControl(name='form.birthdate-month').type,
                 'select')
             self.assertEquals(
                 browser.getControl(name='form.birthdate-year').type,
-                'text')
+                'select')
             self.assertEquals(
                 browser.getControl(name='form.city').type,
                 'text')
@@ -71,13 +72,13 @@ class TestUserDataSchema(FunctionalTestCase):
                 'radio') # Using custom widget
             self.assertEquals(
                 browser.getControl(name='form.birthdate-day').type,
-                'text')
+                'select')
             self.assertEquals(
                 browser.getControl(name='form.birthdate-month').type,
                 'select')
             self.assertEquals(
                 browser.getControl(name='form.birthdate-year').type,
-                'text')
+                'select')
             self.assertEquals(
                 browser.getControl(name='form.city').type,
                 'text')
@@ -133,14 +134,16 @@ class TestUserDataSchema(FunctionalTestCase):
         portal = self.layer['portal']
         setRoles(portal, TEST_USER_ID, ['Manager'])
         transaction.commit()
+
+        yr = str(datetime.now().year - 5)  # widget will only go back 10 years
         browser = self.getBrowser('/@@personal-information')
         browser.getControl('E-mail').value = 'beth@example.com'
         browser.getControl(name='form.firstname').value = 'Beth'
         browser.getControl(name='form.lastname').value = 'Orton'
         browser.getControl(name='form.gender').value = ['Female']
-        browser.getControl(name='form.birthdate-day').value = '15'
+        browser.getControl(name='form.birthdate-day').value = ['15']
         browser.getControl(name='form.birthdate-month').value = ['3']
-        browser.getControl(name='form.birthdate-year').value = '1980'
+        browser.getControl(name='form.birthdate-year').value = [yr]
         browser.getControl(name='form.city').value = 'Norwich'
         browser.getControl(name='form.country').value = 'UK'
         browser.getControl(name='form.phone').value = '012345'
@@ -164,13 +167,13 @@ class TestUserDataSchema(FunctionalTestCase):
             ['Female'])
         self.assertEquals(
             browser.getControl(name='form.birthdate-day').value,
-            '15')
+            ['15'])
         self.assertEquals(
             browser.getControl(name='form.birthdate-month').value,
             ['3'])
         self.assertEquals(
             browser.getControl(name='form.birthdate-year').value,
-            '1980')
+            [yr])
         self.assertEquals(
             browser.getControl(name='form.city').value,
             'Norwich')

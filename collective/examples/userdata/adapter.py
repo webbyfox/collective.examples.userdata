@@ -6,7 +6,7 @@ class EnhancedUserDataSchemaAdapter(AccountPanelSchemaAdapter):
 
     def get_birthdate(self):
         bd = self._getProperty('birthdate')
-        return None if bd == '' else bd
+        return None if bd == '' else bd.asdatetime()
 
     def set_birthdate(self, value):
         return self._setProperty('birthdate', value)
