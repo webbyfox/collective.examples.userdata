@@ -5,6 +5,7 @@ from plone.app.testing import TEST_USER_ID, setRoles
 
 from ..testing import FunctionalTestCase
 
+
 class TestUserDataSchema(FunctionalTestCase):
     def test_personalinformationextended(self):
         """Ensure the fields we wanted were added to @@personal-information
@@ -14,7 +15,6 @@ class TestUserDataSchema(FunctionalTestCase):
         transaction.commit()
         for url in ['/@@personal-information', '/@@user-information']:
             browser = self.getBrowser(url)
-            control = browser.getControl(name='form.gender')
             self.assertEquals(
                 browser.getControl(name='form.firstname').type,
                 'text')
@@ -23,7 +23,7 @@ class TestUserDataSchema(FunctionalTestCase):
                 'text')
             self.assertEquals(
                 browser.getControl(name='form.gender').type,
-                'radio') # Using custom widget
+                'radio')  # Using custom widget
             self.assertEquals(
                 browser.getControl(name='form.birthdate-day').type,
                 'select')
@@ -46,7 +46,7 @@ class TestUserDataSchema(FunctionalTestCase):
                 browser.getControl(name='form.newsletter:list').type,
                 'checkbox')
             # We hid accept, so shouldn't be here
-            with self.assertRaisesRegexp(LookupError,'form.accept:list'):
+            with self.assertRaisesRegexp(LookupError, 'form.accept:list'):
                 browser.getControl(name='form.accept:list')
 
     def test_registerextended(self):
@@ -60,7 +60,6 @@ class TestUserDataSchema(FunctionalTestCase):
         transaction.commit()
         for url in ['/@@register', '/@@new-user']:
             browser = self.getBrowser(url)
-            control = browser.getControl(name='form.gender')
             self.assertEquals(
                 browser.getControl(name='form.firstname').type,
                 'text')
@@ -69,7 +68,7 @@ class TestUserDataSchema(FunctionalTestCase):
                 'text')
             self.assertEquals(
                 browser.getControl(name='form.gender').type,
-                'radio') # Using custom widget
+                'radio')  # Using custom widget
             self.assertEquals(
                 browser.getControl(name='form.birthdate-day').type,
                 'select')
@@ -97,7 +96,7 @@ class TestUserDataSchema(FunctionalTestCase):
                     'checkbox')
             else:
                 # We hid accept, so shouldn't be here
-                with self.assertRaisesRegexp(LookupError,'form.accept:list'):
+                with self.assertRaisesRegexp(LookupError, 'form.accept:list'):
                     browser.getControl(name='form.accept:list')
 
     def test_validateaccept(self):
@@ -108,7 +107,8 @@ class TestUserDataSchema(FunctionalTestCase):
         transaction.commit()
         browser = self.getBrowser('/@@security-controlpanel')
         browser.getControl('Enable self-registration').selected = True
-        browser.getControl('Let users select their own passwords').selected = True
+        browser.getControl('Let users select their own passwords').selected \
+            = True
         browser.getControl('Save').click()
         self.assertTrue('Changes saved' in browser.contents)
 

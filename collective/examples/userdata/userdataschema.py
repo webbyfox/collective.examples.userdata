@@ -15,9 +15,10 @@ from collective.examples.userdata.interfaces import IUserDataExamplesLayer
 
 
 def validateAccept(value):
-    if not value == True:
+    if value is not True:
         return False
     return True
+
 
 class IEnhancedUserDataSchema(model.Schema):
     """ Use all the fields from the default user data schema, and add various
@@ -39,13 +40,13 @@ class IEnhancedUserDataSchema(model.Schema):
         title=_(u'label_gender', default=u'Gender'),
         description=_(u'help_gender',
                       default=u"Are you a girl or a boy?"),
-        values = [u'Male', u'Female'],
+        values=[u'Male', u'Female'],
         required=True,
         )
     birthdate = schema.Date(
         title=_(u'label_birthdate', default=u'Birthdate'),
         description=_(u'help_birthdate',
-            default=u'Your date of birth, in the format dd-mm-yyyy'),
+                      default=u'Your date of birth, in the format dd-mm-yyyy'),
         required=False,
         )
     city = schema.TextLine(
@@ -70,7 +71,7 @@ class IEnhancedUserDataSchema(model.Schema):
         title=_(u'label_newsletter', default=u'Subscribe to newsletter'),
         description=_(u'help_newsletter',
                       default=u"If you tick this box, we'll subscribe you to "
-                        "our newsletter."),
+                      "our newsletter."),
         required=False,
         )
     accept = schema.Bool(
@@ -82,14 +83,16 @@ class IEnhancedUserDataSchema(model.Schema):
         constraint=validateAccept,
         )
 
+
 class UserDataPanelExtender(extensible.FormExtender):
     adapts(Interface, IUserDataExamplesLayer, UserDataPanel)
 
     def update(self):
         fields = field.Fields(IEnhancedUserDataSchema)
-        fields = fields.omit('accept') # Users have already accepted.
+        fields = fields.omit('accept')  # Users have already accepted.
         fields['gender'].widgetFactory = RadioFieldWidget
         self.add(fields, prefix="IEnhancedUserDataSchema")
+
 
 class RegistrationPanelExtender(extensible.FormExtender):
     adapts(Interface, IUserDataExamplesLayer, RegistrationForm)
@@ -99,11 +102,13 @@ class RegistrationPanelExtender(extensible.FormExtender):
         fields['gender'].widgetFactory = RadioFieldWidget
         self.add(fields, prefix="IEnhancedUserDataSchema")
 
+
 class AddUserFormExtender(extensible.FormExtender):
     adapts(Interface, IUserDataExamplesLayer, AddUserForm)
 
     def update(self):
         fields = field.Fields(IEnhancedUserDataSchema)
         fields['gender'].widgetFactory = RadioFieldWidget
-        fields = fields.omit('accept') # management form doesn't need this field
+        # management form doesn't need this field
+        fields = fields.omit('accept')
         self.add(fields, prefix="IEnhancedUserDataSchema")

@@ -1,5 +1,7 @@
 from .userdataschema import IEnhancedUserDataSchema
-from plone.app.users.browser.personalpreferences import AccountPanelSchemaAdapter
+from plone.app.users.browser.personalpreferences import \
+    AccountPanelSchemaAdapter
+
 
 class EnhancedUserDataSchemaAdapter(AccountPanelSchemaAdapter):
     schema = IEnhancedUserDataSchema
