@@ -6,8 +6,8 @@ from z3c.form import field
 from z3c.form.browser.radio import RadioFieldWidget
 
 from plone.supermodel import model
-from plone.app.users.browser.z3cpersonalpreferences import UserDataPanel
-from plone.app.users.browser.z3cregister import RegistrationForm, AddUserForm
+from plone.app.users.browser.personalpreferences import UserDataPanel
+from plone.app.users.browser.register import RegistrationForm, AddUserForm
 from plone.z3cform.fieldsets import extensible
 
 from collective.examples.userdata import _

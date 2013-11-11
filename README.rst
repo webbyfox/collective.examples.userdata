@@ -7,16 +7,6 @@ can be extended to allow any additional data to be collected on the forms.
 This product aims to show how you could extend or modify the default schema
 provided by plone.app.users, and add new fields to the registration form.
 
-Switching to the the z3c.form forms
------------------------------------
-
-The examples below presume you have switched to z3c.form-based forms. To
-switch to the z3c.form-based forms, add the following in your `configure.zcml`
-and `overrides.zcml` respectively::
-
-    <include package="plone.app.users.browser" file="z3c-configure.zcml" />
-    <include package="plone.app.users.browser" file="z3c-overrides.zcml" />
-
 Adding custom userdata fields
 -----------------------------
 
@@ -73,7 +63,7 @@ Before values can be read and written by the form, there needs to be a data
 manager to fetch the values. The default manager will read/write any field
 defined in the schema, so most of the work is done for you::
 
-    from plone.app.users.browser.z3cpersonalpreferences import AccountPanelSchemaAdapter
+    from plone.app.users.browser.personalpreferences import AccountPanelSchemaAdapter
 
     class EnhancedUserDataSchemaAdapter(AccountPanelSchemaAdapter):
         schema = IEnhancedUserDataSchema
