@@ -1,6 +1,12 @@
 Changelog
 =========
 
+2.0 (unreleased)
+----------------
+
+- Convert to show customisation of z3c.form-based plone.app.users.
+  [lentinj, vipod, thet]
+
 0.4 (unreleased)
 ----------------
 

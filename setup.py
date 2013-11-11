@@ -1,7 +1,7 @@
 from setuptools import setup, find_packages
 import os
 
-version = '0.5'
+version = '2.0.dev0'
 
 setup(name='collective.examples.userdata',
       version=version,
@@ -25,7 +25,7 @@ setup(name='collective.examples.userdata',
       zip_safe=False,
       install_requires=[
           'setuptools',
-          'plone.app.users >= 1.0b7',
+          'plone.app.users >= 2.0.dev0',
           # -*- Extra requirements: -*-
       ],
       extras_require={
