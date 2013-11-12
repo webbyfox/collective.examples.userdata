@@ -16,38 +16,38 @@ class TestUserDataSchema(FunctionalTestCase):
         for url in ['/@@personal-information', '/@@user-information']:
             browser = self.getBrowser(url)
             self.assertEquals(
-                browser.getControl(name='form.firstname').type,
+                browser.getControl(name='form.widgets.firstname').type,
                 'text')
             self.assertEquals(
-                browser.getControl(name='form.lastname').type,
+                browser.getControl(name='form.widgets.lastname').type,
                 'text')
             self.assertEquals(
-                browser.getControl(name='form.gender').type,
+                browser.getControl(name='form.widgets.gender').type,
                 'radio')  # Using custom widget
             self.assertEquals(
-                browser.getControl(name='form.birthdate-day').type,
+                browser.getControl(name='form.widgets.birthdate-day').type,
                 'select')
             self.assertEquals(
-                browser.getControl(name='form.birthdate-month').type,
+                browser.getControl(name='form.widgets.birthdate-month').type,
                 'select')
             self.assertEquals(
-                browser.getControl(name='form.birthdate-year').type,
+                browser.getControl(name='form.widgets.birthdate-year').type,
                 'select')
             self.assertEquals(
-                browser.getControl(name='form.city').type,
+                browser.getControl(name='form.widgets.city').type,
                 'text')
             self.assertEquals(
-                browser.getControl(name='form.country').type,
+                browser.getControl(name='form.widgets.country').type,
                 'text')
             self.assertEquals(
-                browser.getControl(name='form.phone').type,
+                browser.getControl(name='form.widgets.phone').type,
                 'text')
             self.assertEquals(
-                browser.getControl(name='form.newsletter:list').type,
+                browser.getControl(name='form.widgets.newsletter:list').type,
                 'checkbox')
             # We hid accept, so shouldn't be here
-            with self.assertRaisesRegexp(LookupError, 'form.accept:list'):
-                browser.getControl(name='form.accept:list')
+            with self.assertRaisesRegexp(LookupError, 'form.widgets.accept:list'):
+                browser.getControl(name='form.widgets.accept:list')
 
     def test_registerextended(self):
         """Ensure the fields we wanted were added to @@register and @@add-user
@@ -61,43 +61,43 @@ class TestUserDataSchema(FunctionalTestCase):
         for url in ['/@@register', '/@@new-user']:
             browser = self.getBrowser(url)
             self.assertEquals(
-                browser.getControl(name='form.firstname').type,
+                browser.getControl(name='form.widgets.firstname').type,
                 'text')
             self.assertEquals(
-                browser.getControl(name='form.lastname').type,
+                browser.getControl(name='form.widgets.lastname').type,
                 'text')
             self.assertEquals(
-                browser.getControl(name='form.gender').type,
+                browser.getControl(name='form.widgets.gender').type,
                 'radio')  # Using custom widget
             self.assertEquals(
-                browser.getControl(name='form.birthdate-day').type,
+                browser.getControl(name='form.widgets.birthdate-day').type,
                 'select')
             self.assertEquals(
-                browser.getControl(name='form.birthdate-month').type,
+                browser.getControl(name='form.widgets.birthdate-month').type,
                 'select')
             self.assertEquals(
-                browser.getControl(name='form.birthdate-year').type,
+                browser.getControl(name='form.widgets.birthdate-year').type,
                 'select')
             self.assertEquals(
-                browser.getControl(name='form.city').type,
+                browser.getControl(name='form.widgets.city').type,
                 'text')
             self.assertEquals(
-                browser.getControl(name='form.country').type,
+                browser.getControl(name='form.widgets.country').type,
                 'text')
             self.assertEquals(
-                browser.getControl(name='form.phone').type,
+                browser.getControl(name='form.widgets.phone').type,
                 'text')
             self.assertEquals(
-                browser.getControl(name='form.newsletter:list').type,
+                browser.getControl(name='form.widgets.newsletter:list').type,
                 'checkbox')
             if url == '/@@register':
                 self.assertEquals(
-                    browser.getControl(name='form.accept:list').type,
+                    browser.getControl(name='form.widgets.accept:list').type,
                     'checkbox')
             else:
                 # We hid accept, so shouldn't be here
-                with self.assertRaisesRegexp(LookupError, 'form.accept:list'):
-                    browser.getControl(name='form.accept:list')
+                with self.assertRaisesRegexp(LookupError, 'form.widgets.accept:list'):
+                    browser.getControl(name='form.widgets.accept:list')
 
     def test_validateaccept(self):
         """Make sure we have to check the 'accept' box
@@ -118,13 +118,13 @@ class TestUserDataSchema(FunctionalTestCase):
         browser.getControl('E-mail').value = 'camel@example.com'
         browser.getControl('Password').value = 'dr0medary'
         browser.getControl('Confirm password').value = 'dr0medary'
-        browser.getControl(name='form.gender').value = ['Male']
+        browser.getControl(name='form.widgets.gender').value = ['Male']
         browser.getControl('Register').click()
         # Should still be on the form at this point, check the box
         self.assertTrue('@@register' in browser.url)
         browser.getControl('Password').value = 'dr0medary'
         browser.getControl('Confirm password').value = 'dr0medary'
-        browser.getControl(name='form.accept:list').value = True
+        browser.getControl(name='form.widgets.accept:list').value = True
         browser.getControl('Register').click()
         self.assertTrue('You have been registered' in browser.contents)
 
@@ -138,16 +138,16 @@ class TestUserDataSchema(FunctionalTestCase):
         yr = str(datetime.now().year - 5)  # widget will only go back 10 years
         browser = self.getBrowser('/@@personal-information')
         browser.getControl('E-mail').value = 'beth@example.com'
-        browser.getControl(name='form.firstname').value = 'Beth'
-        browser.getControl(name='form.lastname').value = 'Orton'
-        browser.getControl(name='form.gender').value = ['Female']
-        browser.getControl(name='form.birthdate-day').value = ['15']
-        browser.getControl(name='form.birthdate-month').value = ['3']
-        browser.getControl(name='form.birthdate-year').value = [yr]
-        browser.getControl(name='form.city').value = 'Norwich'
-        browser.getControl(name='form.country').value = 'UK'
-        browser.getControl(name='form.phone').value = '012345'
-        browser.getControl(name='form.newsletter:list').value = ['selected']
+        browser.getControl(name='form.widgets.firstname').value = 'Beth'
+        browser.getControl(name='form.widgets.lastname').value = 'Orton'
+        browser.getControl(name='form.widgets.gender').value = ['Female']
+        browser.getControl(name='form.widgets.birthdate-day').value = ['15']
+        browser.getControl(name='form.widgets.birthdate-month').value = ['3']
+        browser.getControl(name='form.widgets.birthdate-year').value = [yr]
+        browser.getControl(name='form.widgets.city').value = 'Norwich'
+        browser.getControl(name='form.widgets.country').value = 'UK'
+        browser.getControl(name='form.widgets.phone').value = '012345'
+        browser.getControl(name='form.widgets.newsletter:list').value = ['selected']
         browser.getControl('Save').click()
         self.assertTrue('Changes saved.' in browser.contents)
 
@@ -157,32 +157,32 @@ class TestUserDataSchema(FunctionalTestCase):
             browser.getControl('E-mail').value,
             'beth@example.com')
         self.assertEquals(
-            browser.getControl(name='form.firstname').value,
+            browser.getControl(name='form.widgets.firstname').value,
             'Beth')
         self.assertEquals(
-            browser.getControl(name='form.lastname').value,
+            browser.getControl(name='form.widgets.lastname').value,
             'Orton')
         self.assertEquals(
-            browser.getControl(name='form.gender').value,
+            browser.getControl(name='form.widgets.gender').value,
             ['Female'])
         self.assertEquals(
-            browser.getControl(name='form.birthdate-day').value,
+            browser.getControl(name='form.widgets.birthdate-day').value,
             ['15'])
         self.assertEquals(
-            browser.getControl(name='form.birthdate-month').value,
+            browser.getControl(name='form.widgets.birthdate-month').value,
             ['3'])
         self.assertEquals(
-            browser.getControl(name='form.birthdate-year').value,
+            browser.getControl(name='form.widgets.birthdate-year').value,
             [yr])
         self.assertEquals(
-            browser.getControl(name='form.city').value,
+            browser.getControl(name='form.widgets.city').value,
             'Norwich')
         self.assertEquals(
-            browser.getControl(name='form.country').value,
+            browser.getControl(name='form.widgets.country').value,
             'UK')
         self.assertEquals(
-            browser.getControl(name='form.phone').value,
+            browser.getControl(name='form.widgets.phone').value,
             '012345')
         self.assertEquals(
-            browser.getControl(name='form.newsletter:list').value,
+            browser.getControl(name='form.widgets.newsletter:list').value,
             ['selected'])
