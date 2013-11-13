@@ -1,11 +1,11 @@
 Introduction
 ============
 
-The registration and personal information forms are z3c.form forms. These
+Plone's registration and personal information forms are z3c.form_ forms. These
 can be extended to allow any additional data to be collected on the forms.
 
 This product aims to show how you could extend or modify the default schema
-provided by plone.app.users, and add new fields to the registration form.
+provided by plone.app.users_, and add new fields to the registration form.
 
 Adding custom userdata fields
 -----------------------------
@@ -45,7 +45,7 @@ And register this in configure.zcml::
       factory=".userdataschema.UserDataPanelExtender"
       provides="plone.z3cform.fieldsets.interfaces.IFormExtender" />
 
-Storing / retreiving custom fields
+Storing / retrieving custom fields
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 To store the values alongside default fields, we need to add fields to
@@ -147,6 +147,4 @@ Because this field can be ignored once registration is complete, we don't add
 it to the memberdata properties. We also hide it from the userdata forms.
 
 .. _plone.app.users: http://pypi.python.org/pypi/plone.app.users
-.. _formlib: http://pypi.python.org/pypi/zope.formlib
-.. _plone.app.controlpanel: http://pypi.python.org/pypi/plone.app.controlpanel
- 
+.. _z3c.form: https://pypi.python.org/pypi/z3c.form
