@@ -63,7 +63,7 @@ Before values can be read and written by the form, there needs to be a data
 manager to fetch the values. The default manager will read/write any field
 defined in the schema, so most of the work is done for you::
 
-    from plone.app.users.browser.personalpreferences import AccountPanelSchemaAdapter
+    from plone.app.users.browser.account import AccountPanelSchemaAdapter
 
     class EnhancedUserDataSchemaAdapter(AccountPanelSchemaAdapter):
         schema = IEnhancedUserDataSchema
