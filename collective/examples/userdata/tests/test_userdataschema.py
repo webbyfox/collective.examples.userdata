@@ -1,9 +1,8 @@
+from collective.examples.userdata.testing import FunctionalTestCase
 from datetime import datetime
-import transaction
-
 from plone.app.testing import TEST_USER_ID, setRoles
 
-from ..testing import FunctionalTestCase
+import transaction
 
 
 class TestUserDataSchema(FunctionalTestCase):
@@ -46,7 +45,8 @@ class TestUserDataSchema(FunctionalTestCase):
                 browser.getControl(name='form.widgets.newsletter:list').type,
                 'checkbox')
             # We hid accept, so shouldn't be here
-            with self.assertRaisesRegexp(LookupError, 'form.widgets.accept:list'):
+            with self.assertRaisesRegexp(LookupError,
+                                         'form.widgets.accept:list'):
                 browser.getControl(name='form.widgets.accept:list')
 
     def test_registerextended(self):
@@ -96,7 +96,8 @@ class TestUserDataSchema(FunctionalTestCase):
                     'checkbox')
             else:
                 # We hid accept, so shouldn't be here
-                with self.assertRaisesRegexp(LookupError, 'form.widgets.accept:list'):
+                with self.assertRaisesRegexp(LookupError,
+                                             'form.widgets.accept:list'):
                     browser.getControl(name='form.widgets.accept:list')
 
     def test_validateaccept(self):
@@ -147,7 +148,9 @@ class TestUserDataSchema(FunctionalTestCase):
         browser.getControl(name='form.widgets.city').value = 'Norwich'
         browser.getControl(name='form.widgets.country').value = 'UK'
         browser.getControl(name='form.widgets.phone').value = '012345'
-        browser.getControl(name='form.widgets.newsletter:list').value = ['selected']
+        browser.getControl(
+            name='form.widgets.newsletter:list'
+        ).value = ['selected']
         browser.getControl('Save').click()
         self.assertTrue('Changes saved.' in browser.contents)
 

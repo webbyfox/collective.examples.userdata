@@ -15,21 +15,21 @@
       />
 
   <adapter
-    factory=".userdataschema.UserDataPanelExtender"
-    provides="plone.z3cform.fieldsets.interfaces.IFormExtender" />
+      factory=".userdataschema.UserDataPanelExtender"
+      provides="plone.z3cform.fieldsets.interfaces.IFormExtender" />
 
   <adapter
-    factory=".userdataschema.RegistrationPanelExtender"
-    provides="plone.z3cform.fieldsets.interfaces.IFormExtender" />
+      factory=".userdataschema.RegistrationPanelExtender"
+      provides="plone.z3cform.fieldsets.interfaces.IFormExtender" />
     
   <adapter
-    factory=".userdataschema.AddUserFormExtender"
-    provides="plone.z3cform.fieldsets.interfaces.IFormExtender" />
+      factory=".userdataschema.AddUserFormExtender"
+      provides="plone.z3cform.fieldsets.interfaces.IFormExtender" />
 
   <adapter
-    provides=".userdataschema.IEnhancedUserDataSchema"
-    for="plone.app.layout.navigation.interfaces.INavigationRoot"
-    factory=".userdataschema.EnhancedUserDataSchemaAdapter"
-    />
+      provides=".userdataschema.IEnhancedUserDataSchema"
+      for="plone.app.layout.navigation.interfaces.INavigationRoot"
+      factory=".userdataschema.EnhancedUserDataSchemaAdapter"
+      />
 
 </configure>
