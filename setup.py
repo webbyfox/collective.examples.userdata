@@ -31,6 +31,7 @@ setup(
     install_requires=[
         'setuptools',
         'plone.app.users >= 2.0.dev0',
+        'plone.formwidget.datetime [z3cform]',
     ],
     extras_require={
         'test': ['plone.app.testing'],
