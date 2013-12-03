@@ -1,12 +1,11 @@
-import unittest2 as unittest
-
-from zope.configuration import xmlconfig
-
-from plone.testing import z2
 from plone.app.testing import PloneSandboxLayer, PLONE_FIXTURE, applyProfile
 from plone.app.testing import TEST_USER_NAME, TEST_USER_PASSWORD
-from plone.app.testing.layers import IntegrationTesting
 from plone.app.testing.layers import FunctionalTesting
+from plone.app.testing.layers import IntegrationTesting
+from plone.testing import z2
+from zope.configuration import xmlconfig
+
+import unittest2 as unittest
 
 
 class EnhancedUserdata(PloneSandboxLayer):
@@ -24,11 +23,6 @@ class EnhancedUserdata(PloneSandboxLayer):
         xmlconfig.file(
             'configure.zcml',
             plone.formwidget.namedfile,
-            context=configurationContext,
-        )
-        xmlconfig.file(
-            'overrides.zcml',
-            collective.examples.userdata,
             context=configurationContext,
         )
 
