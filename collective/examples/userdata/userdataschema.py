@@ -1,17 +1,15 @@
-from zope.interface import Interface
-from zope.component import adapts
-from zope import schema
-
-from z3c.form import field
-from z3c.form.browser.radio import RadioFieldWidget
-
-from plone.supermodel import model
-from plone.app.users.browser.userdatapanel import UserDataPanel
-from plone.app.users.browser.register import RegistrationForm, AddUserForm
-from plone.z3cform.fieldsets import extensible
-
 from collective.examples.userdata import _
 from collective.examples.userdata.interfaces import IUserDataExamplesLayer
+from plone.app.users.browser.account import AccountPanelSchemaAdapter
+from plone.app.users.browser.register import RegistrationForm, AddUserForm
+from plone.app.users.browser.userdatapanel import UserDataPanel
+from plone.supermodel import model
+from plone.z3cform.fieldsets import extensible
+from z3c.form import field
+from z3c.form.browser.radio import RadioFieldWidget
+from zope import schema
+from zope.component import adapts
+from zope.interface import Interface
 
 
 def validateAccept(value):
@@ -21,7 +19,7 @@ def validateAccept(value):
 
 
 class IEnhancedUserDataSchema(model.Schema):
-    """ Use all the fields from the default user data schema, and add various
+    """Use all the fields from the default user data schema, and add various
     extra fields.
     """
     firstname = schema.TextLine(
@@ -82,6 +80,19 @@ class IEnhancedUserDataSchema(model.Schema):
         required=True,
         constraint=validateAccept,
         )
+
+
+class EnhancedUserDataSchemaAdapter(AccountPanelSchemaAdapter):
+    schema = IEnhancedUserDataSchema
+
+    def get_birthdate(self):
+        bd = self._getProperty('birthdate')
+        return None if bd == '' else bd.asdatetime()
+
+    def set_birthdate(self, value):
+        return self._setProperty('birthdate', value)
+
+    birthdate = property(get_birthdate, set_birthdate)
 
 
 class UserDataPanelExtender(extensible.FormExtender):

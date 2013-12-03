@@ -29,7 +29,7 @@
   <adapter
     provides=".userdataschema.IEnhancedUserDataSchema"
     for="plone.app.layout.navigation.interfaces.INavigationRoot"
-    factory=".adapter.EnhancedUserDataSchemaAdapter"
+    factory=".userdataschema.EnhancedUserDataSchemaAdapter"
     />
 
 </configure>
