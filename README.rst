@@ -1,11 +1,14 @@
 Introduction
 ============
 
-Plone's registration and personal information forms are z3c.form_ forms. These
-can be extended to allow any additional data to be collected on the forms.
+With Plone 5, the registration and personal information forms are z3c.form_ forms.
+These can be extended to allow any additional data to be collected on the forms.
 
 This product aims to show how you could extend or modify the default schema
 provided by plone.app.users_, and add new fields to the registration form.
+
+If you are using a Plone version previous to Plone 5, then you need to look at the older version of
+`collective.examples.userdata here <https://pypi.python.org/pypi/collective.examples.userdata/0.4>`__.
 
 Adding custom userdata fields
 -----------------------------
