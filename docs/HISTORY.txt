@@ -7,7 +7,7 @@ Changelog
 - Convert to show customisation of z3c.form-based plone.app.users.
   [lentinj, vipod, thet]
 
-0.4 (unreleased)
+0.4 (2013-12-18)
 ----------------
 
 - Moved to github (Kees Hink)
