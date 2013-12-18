@@ -1,8 +1,8 @@
 Changelog
 =========
 
-0.4dev (unreleased)
--------------------
+0.4 (2013-12-18)
+----------------
 
 - Fix gender vocabulary and translate it properly. (thet)
 - Dont' overwrite existing user registration fields, just add accept and
