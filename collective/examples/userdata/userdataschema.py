@@ -1,15 +1,11 @@
-from plone.app.users.userdataschema import IUserDataSchema
-from plone.app.users.userdataschema import IUserDataSchemaProvider
+from zope.interface import Interface, implements
 from zope import schema
+from z3c.form.browser.radio import RadioWidget
 from zope.schema.vocabulary import SimpleVocabulary, SimpleTerm
-from zope.interface import implements
+
 from collective.examples.userdata import _
-
-
-gender_options = SimpleVocabulary([
-    SimpleTerm(value='Male', title=_(u'Male')),
-    SimpleTerm(value='Female', title=_(u'Female')),
-    ])
+from plone.app.users.userdataschema import IUserDataSchemaProvider
+from plone.app.users.userdataschema import IUserDataSchema
 
 def validateAccept(value):
     if not value == True:
@@ -44,19 +40,16 @@ class IEnhancedUserDataSchema(IUserDataSchema):
         title=_(u'label_gender', default=u'Gender'),
         description=_(u'help_gender',
                       default=u"Are you a girl or a boy?"),
-        vocabulary = gender_options,
+        values = [
+            _(u'Male'), 
+            _(u'Female'),
+            ],
         required=False,
         )
     birthdate = schema.Date(
         title=_(u'label_birthdate', default=u'birthdate'),
-        description=_(u'help_birthdate',
+        description=_(u'help_birthdate', 
             default=u'Your date of birth, in the format dd-mm-yyyy'),
-        required=False,
-        )
-    birthyear = schema.TextLine(
-        title=_(u'label_birthyear', default=u'Year of birth'),
-        description=_(u'help_birthyear',
-                      default=u"Your birth year, in the format YYYY."),
         required=False,
         )
     city = schema.TextLine(
@@ -92,3 +85,11 @@ class IEnhancedUserDataSchema(IUserDataSchema):
         required=True,
         constraint=validateAccept,
         )
+    
+    user_type = schema.Choice(
+	            title=_(u'label_user_type',default=u'Please indicate if you are an Individual or Medical school?'),
+				vocabulary = SimpleVocabulary([ SimpleTerm(value=u'Individual', title=_(u'Individual')),
+                           SimpleTerm(value=u'Medical School', title=_(u'Medical School')),]),
+				required = True,
+                )
+	

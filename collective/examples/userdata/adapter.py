@@ -1,6 +1,5 @@
 from plone.app.users.browser.personalpreferences import UserDataPanelAdapter
 
-
 class EnhancedUserDataPanelAdapter(UserDataPanelAdapter):
     """
     """
@@ -27,12 +26,6 @@ class EnhancedUserDataPanelAdapter(UserDataPanelAdapter):
     def set_birthdate(self, value):
         return self.context.setMemberProperties({'birthdate': value})
     birthdate = property(get_birthdate, set_birthdate)
-
-    def get_birthyear(self):
-        return self.context.getProperty('birthyear', '')
-    def set_birthyear(self, value):
-        return self.context.setMemberProperties({'birthyear': value})
-    birthyear = property(get_birthyear, set_birthyear)
 
     def get_city(self):
         return self.context.getProperty('city', '')
@@ -63,3 +56,12 @@ class EnhancedUserDataPanelAdapter(UserDataPanelAdapter):
     def set_accept(self, value):
         return self.context.setMemberProperties({'accept': value})
     accept = property(get_accept, set_accept)
+    
+    def get_user_type(self):
+        return self.context.getProperty('user_type', '')
+    def set_user_type(self, value):
+        return self.context.setMemberProperties({'user_type': value})
+    user_type = property(get_user_type, set_user_type)
+	
+
+

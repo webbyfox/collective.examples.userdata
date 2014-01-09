@@ -2,11 +2,11 @@
 <object name="portal_memberdata" meta_type="Plone Memberdata Tool">
  <property name="firstname" type="string"></property>
  <property name="lastname" type="string"></property>
- <property name="gender" type="string"></property>
- <property name="birthdate" type="string"></property>
- <property name="birthyear" type="string"></property>
  <property name="city" type="string"></property>
  <property name="country" type="string"></property>
+ <property name="birthdate" type="string"></property>
+ <property name="subscribe_newsletter" type="boolean"></property>
  <property name="phone" type="string"></property>
- <property name="newsletter" type="boolean"></property>
-</object>
+ <property name="gender" type="string"></property>
+ <property name="user_type" type="string"></property>
+</object> 
